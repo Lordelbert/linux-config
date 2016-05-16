@@ -1,0 +1,7 @@
+What you need to install:
+	tmux => terminal multiplexer
+	Rofi => work like dmenu under steroid ^^
+	i3wm and i3block
+	I mainly use xfce terminal but my .Xressource set xterm to use solarized dark theme
+	vim
+
