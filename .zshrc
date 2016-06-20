@@ -17,7 +17,7 @@ export BROWSER="firefox"
 export EDITOR="vim"
 #export PAGER="vimpager"
 export PATH="${HOME}/bin:${PATH}:/home/astrid/.local/bin"
-
+export LANG=en_GB.utf8
 #-----------------------------
 # Dircolors
 #-----------------------------

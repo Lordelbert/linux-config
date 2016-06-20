@@ -1,0 +1,25 @@
+if [ ! -x /usr/bin/cmus-remote ];
+then
+echo "cmus is not installed."
+exit
+fi
+
+ARTISTCMUS=$( cmus-remote -Q 2>/dev/null | grep -m 1 albumartist | cut -d " " -f 3- )
+TITLECMUS=$( cmus-remote -Q 2>/dev/null | grep title | cut -d " " -f 3- )
+
+ARTISTCD=$(rhythmbox-client --no-start --print-playing-format="%aa - %at")
+
+
+if [ -z "$ARTISTCMUS" ] && [ -z "$ARTISTCD" ];
+then
+	echo ""
+else
+	
+	if [ -z "$ARTISTCD" ];
+	then
+		echo "$ARTISTCMUS - $TITLECMUS"
+	else
+		echo "$ARTISTCD"
+	fi
+	
+fi
