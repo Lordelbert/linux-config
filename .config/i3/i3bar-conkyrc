@@ -11,6 +11,7 @@ conky.config = {
     use_spacer = "left",
     override_utf8_locale = false,
     cpu_avg_samples = 2,
+    pad_percents = 2,
 }
 
 conky.text = [[
@@ -19,24 +20,26 @@ conky.text = [[
 {
 	"full_text": "  ${time %d/%m/%y %a}|",
 	"color": "\#ecf0f1",
-	"background": "\#9b59f6",
+	#"background": "\#9b59f6",
+	#"background": "\#008fff",
 	"separator":  false,
 	"separator_block_width": 0
 },
 
 {
-	"full_text": " ${time %H:%M:%S} ",
+	"full_text": " ${time %H:%M:%S}|",
 	"color": "\#ecf0f1",
-	"background": "\#9b59f6",
+	#"background": "\#9b59f6",
+	#"background": "\#008fff",
 	"separator":  false,
 	"separator_block_width": 0
 
 },
 
 {
-	"full_text": " System: ${cpu cpu0}%,${acpitemp}°C |",
+	"full_text": "System: ${cpu cpu0}%,${acpitemp}°C|",
 	"color": "\#ecf0f1",
-	"background": "\#008fff",
+	#"background": "\#008fff",
 	"separator":  false,
 	"separator_block_width": 0
 
@@ -44,9 +47,9 @@ conky.text = [[
 #(${memperc}%)
 #/${memmax}
 {
-	"full_text": "${mem} |",
+	"full_text": "RAM: ${mem}|",
 	"color": "\#ecf0f1",
-	"background": "\#008fff",
+	#"background": "\#008fff",
 	"separator":  false,
 	"separator_block_width": 0
 
@@ -57,39 +60,41 @@ conky.text = [[
 #fs_free_perc - Free percentage of space
 #fs_size - File system size
 #fs_used - File system used space
+#{
+#	"full_text": " :${fs_free /home} /:${fs_free /} ",
+#	"color": "\#ecf0f1",
+#	"background": "\#008fff",
+#	"separator":  false,
+#	"separator_block_width": 0
+#
+#},
 {
-	"full_text": " :${fs_free /home} /:${fs_free /} ",
+	"full_text": ": ${exec amixer get Master | grep -E -o '[0-9]{1,3}?%' | head -1 }|",
 	"color": "\#ecf0f1",
-	"background": "\#008fff",
-	"separator":  false,
-	"separator_block_width": 0
-
-},
-{
-	"full_text": " : ${exec amixer get Master | grep -E -o '[0-9]{1,3}?%' | head -1 }|",
-	"color": "\#ecf0f1",
-	"background": "\#2ecc71",
-	"separator":  false,
-	"separator_block_width": 0
-
-},
-
-{
-	"full_text": "♪: ${execi 2 $HOME/.config/i3/i3cmus-conky} ",
-	"color": "\#ecf0f1",
-	"background": "\#2ecc71",
+	#"background": "\#2ecc71",
+	#"background": "\#008fff",
 	"separator":  false,
 	"separator_block_width": 0
 
 },
 
-
 {
-	"full_text": "    ${exec uname -r} ",
+	"full_text": "♪: ${execi 2 echo `mpc current` }",
 	"color": "\#ecf0f1",
-	"background": "\#e74c3c"
-
+	#"background": "\#2ecc71",
+	#"background": "\#008fff",
+	"separator":  false,
+	"separator_block_width": 0
 }
+#},
+
+
+#{
+#	"full_text": "    ${exec uname -r} ",
+#	"color": "\#ecf0f1",
+#	"background": "\#e74c3c"
+#
+#}
 
 #    {
 #      "full_text": " \

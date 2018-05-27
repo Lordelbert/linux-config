@@ -1,167 +1,104 @@
-" An example for a vimrc file.
-"
-" Original from:	Bram Moolenaar <Bram@vim.org>
-" Maintainer: MADAU
-"
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
+" Features {{{1
 set nocompatible
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-set backup		" keep a backup file (restore to previous version)
-set undofile		" keep an undo file (undo changes after closing)
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-set autoindent
-set number
-set smarttab
-set shiftwidth=4
-set tabstop=4
-let g:solarized_termcolors=256
-"set background=dark
-syntax enable
-colorscheme solarized
-"background and tmux require this:
-set t_ut=
-
-" ----- leader related   -----
-"change leader for ,
-":let mapleader = ","
-" spell checking ,ss on and off
-map <leader>ss :setlocal spell!<cr>
-map <leader>c  :let @/ = ""
-" ----- end leader stuff -----
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-
-  augroup END
-
-else
-
-endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
-
-if has('langmap') && exists('+langnoremap')
-  " Prevent that the langmap option applies to characters that result from a
-  " mapping.  If unset (default), this may break plugins (but it's backward
-  " compatible).
-  set langnoremap
-endif
-
-" ---- Plugin Section using vim-plug ----
+filetype indent plugin on
+syntax on
+"------------------------------------------------------------
+" Must have options {{{1
 "
+" These are highly recommended options.
+
+" Vim with default settings does not allow easy switching between multiple files
+" in the same editor window. Users can use multiple split windows or multiple
+" tab pages to edit multiple files, but it is still best to enable an option to
+" allow easier switching between files.
+"
+" One such option is the 'hidden' option, which allows you to re-use the same
+" window and switch from an unsaved buffer without saving it first. Also allows
+" you to keep an undo history for multiple files when re-using the same window
+" in this way. Note that using persistent undo also lets you undo in multiple
+" files even in the same window, but is less efficient and is actually designed
+" for keeping undo history after closing Vim entirely. Vim will complain if you
+" try to quit without saving, and swap files will keep you safe if your computer
+" crashes.
+set hidden
+
+" Note that not everyone likes working this way (with the hidden option).
+" Alternatives include using tabs or split windows instead of re-using the same
+" window as mentioned above, and/or either of the following options:
+" set confirm
+" set autowriteall
+
+" Better command-line completion
+set wildmenu
+
+" Show partial commands in the last line of the screen
+set showcmd
+
+" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
+" mapping of <C-L> below)
+set hlsearch
+
+" Modelines have historically been a source of security vulnerabilities. As
+" such, it may be a good idea to disable them and use the securemodelines
+" script, <http://www.vim.org/scripts/script.php?script_id=1876>.
+" set nomodeline
+
+
+"------------------------------------------------------------
+" Usability options {{{1
+set ignorecase
+set smartcase
+set backspace=indent,eol,start
+set autoindent
+set nostartofline
+set ruler
+set laststatus=2
+"set confirm
+set visualbell
+set t_vb=
+" Enable use of the mouse for all modes
+set mouse=a
+
+" Set the command window height to 2 lines, to avoid many cases of having to
+" "press <Enter> to continue"
+set cmdheight=1
+set number
+
+" Quickly time out on keycodes, but never time out on mappings
+set notimeout ttimeout ttimeoutlen=200
+" Use <F11> to toggle between 'paste' and 'nopaste'
+set pastetoggle=<F11>
+
+
+"------------------------------------------------------------
+" Indentation options {{{1
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+"------------------------------------------------------------
+" Mappings {{{1
+nnoremap <C-L> :nohl<CR><C-L>
+map <leader>c :let @/ =""
+"------------------------------------------------------------
+"Plug part
 call plug#begin('~/.vim/plugged')
-
-" lateX plug-in
-Plug 'https://github.com/vim-latex/vim-latex.git'
-" Plug 'https://github.com/LaTeX-Box-Team/LaTeX-Box.git'
-
-" Nerdtre + plugin for nerdtree
-Plug 'https://github.com/scrooloose/nerdtree.git'
-Plug 'https://github.com/jistr/vim-nerdtree-tabs.git'
-
-" status bar
-Plug 'https://github.com/itchyny/lightline.vim'
-
-"syntax check
-Plug 'https://github.com/scrooloose/syntastic.git'
-
-" -- rust section: --
-" syntax color 
-Plug 'https://github.com/wting/rust.vim.git'
-" racer
-Plug 'https://github.com/racer-rust/vim-racer.git'
-" -- end rust --
-
+Plug 'itchyny/lightline.vim'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'https://github.com/vim-syntastic/syntastic.git'
+Plug 'https://github.com/Rip-Rip/clang_complete.git'
+Plug 'racer-rust/vim-racer'
 call plug#end()
-
-let g:nerdtree_tabs_open_on_console_startup=1
-
-" REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
-filetype plugin on
-
-" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" can be called correctly.
-" set shellslash
-
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-set grepprg=grep\ -nH\ $*
-
-" OPTIONAL: This enables automatic indentation as you type.
-filetype indent on
-
-" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
-
-"syntax checker set
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-"Racer rust
+
+"racer setup
 set hidden
-let g:racer_cmd = "/home/maxime/utilitaire/racer/target/release/racer"
-let $RUST_SRC_PATH="/home/maxime/utilitaire/rust/src/"
+let g:racer_experimental_completer=1
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
