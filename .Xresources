@@ -1,46 +1,56 @@
-! Base16 Eighties
-! Scheme: Chris Kempson (http://chriskempson.com)
+!Copyright (c) 2016-present Arctic Ice Studio <development@arcticicestudio.com>
+! Copyright (c) 2016-present Sven Greb <code@svengreb.de>
 
-*foreground:   #d3d0c8
-#ifdef background_opacity
-*background:   [background_opacity]#2d2d2d
-#else
-*background:   #2d2d2d
-#endif
-*cursorColor:  #d3d0c8
+! Project:    Nord XResources
+! Version:    0.1.0
+! Repository: https://github.com/arcticicestudio/nord-xresources
+! License:    MIT
 
-*color0:       #2d2d2d
-*color1:       #f2777a
-*color2:       #99cc99
-*color3:       #ffcc66
-*color4:       #6699cc
-*color5:       #cc99cc
-*color6:       #66cccc
-*color7:       #d3d0c8
+#define nord0 #2E3440
+#define nord1 #3B4252
+#define nord2 #434C5E
+#define nord3 #4C566A
+#define nord4 #D8DEE9
+#define nord5 #E5E9F0
+#define nord6 #ECEFF4
+#define nord7 #8FBCBB
+#define nord8 #88C0D0
+#define nord9 #81A1C1
+#define nord10 #5E81AC
+#define nord11 #BF616A
+#define nord12 #D08770
+#define nord13 #EBCB8B
+#define nord14 #A3BE8C
+#define nord15 #B48EAD
 
-*color8:       #747369
-*color9:       #f2777a
-*color10:      #99cc99
-*color11:      #ffcc66
-*color12:      #6699cc
-*color13:      #cc99cc
-*color14:      #66cccc
-*color15:      #f2f0ec
+*.foreground:   nord4
+*.background:   nord0
+*.cursorColor:  nord4
+*fading: 35
+*fadeColor: nord3
 
-! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
-! use 'shell' template to set these if necessary
-*color16:      #f99157
-*color17:      #d27b53
-*color18:      #393939
-*color19:      #515151
-*color20:      #a09f93
-*color21:      #e8e6df
-
-
+*.color0: nord1
+*.color1: nord11
+*.color2: nord14
+*.color3: nord13
+*.color4: nord9
+*.color5: nord15
+*.color6: nord8
+*.color7: nord5
+*.color8: nord3
+*.color9: nord11
+*.color10: nord14
+*.color11: nord13
+*.color12: nord9
+*.color13: nord15
+*.color14: nord7
+*.color15: nord6
 ! URxvt.font:                       9x15,xft:TerminessTTFNerdFontMono
+URxvt*font: xft:Terminus:size=14
+!URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline,Source\ Code\ Pro\ Medium:size=11 
 
 ! alternative font settings with 'terminus':
-URxvt.font:      -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+!URxvt.font:      --terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
 !URxvt.bold.font: -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso10646-1
 
 URxvt*scrollBar:                  false
@@ -52,6 +62,7 @@ URxvt*saveLines:                  5000
 ! URxvt*inheritPixmap:            true
 ! URxvt*transparent:              true
 ! URxvt*shading:                  138
+!URxvt.blurRadius: 35
 
 ! other possible settings:
 URxvt.iso14755: false
@@ -70,7 +81,6 @@ URxvt.keysym.Shift-Control-Up:    \033[1;6A
 URxvt.keysym.Control-Down:    \033[1;5B
 URxvt.keysym.Shift-Control-Down:    \033[1;6B
 URxvt.clipboard.autocopy: true
-!xterm.font: *-dejavu serif-medium-*-normal-*-*
 !!------------------------------------------------------------------------------
 !! ROFI Color theme
 !! ------------------------------------------------------------------------------
@@ -81,12 +91,14 @@ rofi.color-urgent:                   argb:00000000,  #F99157 , argb:00000000,  #
 rofi.color-active:                   argb:00000000,  #6699CC , argb:00000000,  #6699CC ,  #1B2B34
 rofi.color-window:                   argb:ee000000,  #000000 ,  #1793e0
 ! Separator style (none, dash, solid)
-rofi.separator-style:                dash
-rofi.show-icons:                true
-rofi.color-enabled:                  true
-rofi.modi:							 window,run,ssh,drun
-!
-! URxvt.keysym.M-C-v:              perl:clipboard:paste_escaped
+rofi.separator-style:   dash
+rofi.show-icons:        true
+rofi.color-enabled:     true
+rofi.combi-modi:		window,run,ssh,drun
+rofi.modi:combi
+!rofi.font:              'Noto Sans 11'
+rofi.hide-scrollbar:    true
+URxvt.keysym.M-C-v:              perl:clipboard:paste_escaped
 ! URxvt*termName:                  string
 ! URxvt*geometry:                  geometry
 ! URxvt*chdir:                     string

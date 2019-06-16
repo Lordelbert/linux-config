@@ -1,10 +1,6 @@
 What you need to install:
 	tmux => terminal multiplexer
-	Rofi => work like dmenu under steroid ^^ also usefull to travel in workspace
-	i3wm and i3block
-	I mainly use xfce terminal but my .Xressource set xterm to use solarized dark theme
-	vim
-	feh for wallpaper
-	neofetch or screenfetch (I prefer neofetch ... :))
+	Rofi => work like dmenu also usefull to travel in workspace
+	i3wm
 
 

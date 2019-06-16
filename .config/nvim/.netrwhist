@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/maxime/Code/jisho_request/src'
+let g:netrw_dirhist_2='/home/maxime/Code/opencl/bcompute_example/test1.cpp'
+let g:netrw_dirhist_3='/home/maxime/Code/opencl/bcompute_example'
+let g:netrw_dirhist_4='/home/maxime/Code/opencl/bcompute_example/test1.cpp'
+let g:netrw_dirhist_5='/home/maxime/.config/mpd'
+let g:netrw_dirhist_6='/home/maxime/.config/ncmpcpp'
