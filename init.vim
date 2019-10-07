@@ -48,25 +48,24 @@ set backspace=indent,eol,start
 set autoindent
 set nostartofline
 set ruler
+set cursorline
 set laststatus=2
 "set confirm
 set visualbell
-" Enable use of the mouse for all modes
+    " Enable use of the mouse for all modes
 set mouse=a
 filetype plugin on
 set list
 set listchars=tab:\\|\ 
-" Set the command window height to 2 lines, to avoid many cases of having to
-" "press <Enter> to continue"
+set tabstop=4
+set softtabstop=0 noexpandtab
+set shiftwidth=4
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 set cmdheight=1
-set number
+set number relativenumber
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
-let g:lightline = { 'colorscheme': 'nord',}
-let g:nord_uniform_status_lines = 1
-let g:nord_comment_brightness = 12
-colorscheme nord
-"------------------------------------------------------------
+"-----------------------------------------------------------
 " Indentation options {{{1
 "set shiftwidth=4
 set softtabstop=4
@@ -100,19 +99,20 @@ endfunction
 
 " Add your own mapping. For example:
 noremap <silent> <C-E> :call ToggleNetrw()<CR>
+tnoremap <Esc> <C-\><C-n>
 "------------------------------------------------------------
 " Mappings {{{1
 let mapleader=','
 nnoremap <C-L> :nohl<CR><C-L>
+noremap <C-n> <C-\><C-N>
 map <C-c> :let @/ =""<cr>
-map <C-s> :set listchars=tab:\\|\ 
+map <C-s> :set listchars=tab:\\|\ <cr>
 nmap <C-t> :TagbarToggle<CR>
 "json pretty
 map <C-j> :%!jq .<cr>
 map <C-j><C-c> :%!jq -c .<cr>
 "hex pretty
 map <C-h> :%!xxd<cr>
-
 "------------------------------------------------------------
 "Cscope mapping
 if has('cscope')
@@ -152,14 +152,14 @@ if has('cscope')
   "   'i'   includes: find files that include the filename under cursor
   "   'd'   called: find functions that function under cursor calls
   "
-  nmap <C-f>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-f>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-f>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-f>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-f>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
-  nmap <C-f>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-  nmap <C-f>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-  nmap <C-f>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-f>s :tab scs find s <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-f>g :tab scs find g <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-f>c :tab scs find c <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-f>t :tab scs find t <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-f>e :tab scs find e <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-f>f :tab scs find f <C-R>=expand("<cfile>")<CR><CR>
+  nmap <C-f>i :tab scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  nmap <C-f>d :tab scs find d <C-R>=expand("<cword>")<CR><CR>
 
 endif
 cnoreabbrev <expr> csa
@@ -233,20 +233,26 @@ set omnifunc=ale#completion#OmniFunc
 call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'https://github.com/Yggdroot/indentLine.git'
 Plug 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
-Plug 'https://github.com/arcticicestudio/nord-vim.git'
 Plug 'https://github.com/dpelle/vim-Grammalecte.git'
 Plug 'https://github.com/majutsushi/tagbar.git'
+Plug 'https://github.com/jnurmine/Zenburn.git'
 Plug 'https://github.com/rhysd/vim-grammarous.git'
 Plug 'https://github.com/w0rp/ale.git'
 call plug#end()
-"let g:deoplete#enable_at_startup= 1
+set termguicolors
+let g:lightline ={'colorscheme':'wombat',}
+colorscheme zenburn
+
 "le:grammalecte_cli_py='~/utilitaire/Grammalecte/pythonpath/grammalecte-cli.py'
-let g:ale_linters= {'c': ['clang','clangd','clangtidy'],'cpp': ['clang','clangd','clangtidy']}
-let g:ale_fixers= {'c': ['clang-format'],'cpp': ['clang-format']}
+let g:ale_linters= {'c': ['clang','clangd','clangtidy'],'cpp': ['clang','clangd','clangtidy'], 'rust': ['rls'], 'go': ['gopls']}
+let g:ale_fixers= {'*':['remove_trailing_lines', 'trim_whitespace'],'c': ['clang-format'],'cpp': ['clang-format'], 'rust':['rustfmt'],'go':['gofmt']}
+let g:ale_cpp_clang_options= '-std=c++17'
 let g:ale_c_parse_compile_commands=1
 let g:ale_cpp_parse_compile_commands=1
 let g:ale_linters_explicit=1
+let g:ale_fixers_explicit=1
 
 let g:ale_lint_on_text_changed=0
 let g:ale_lint_on_insert_leave=1
@@ -254,3 +260,7 @@ let g:ale_lint_on_enter=1
 let g:ale_lint_on_save=1
 let g:ale_lint_on_filetype_changed=0
 let g:ale_completion_enabled = 1
+"let g:indentLine_setColors = 0
+let g:indentLine_color_term = 3
+let g:indentLine_char = '|'
+let g:indentLine_enabled = 1
