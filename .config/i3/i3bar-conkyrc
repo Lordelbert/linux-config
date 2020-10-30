@@ -18,42 +18,48 @@ conky.text = [[
   [
 
 {
-	"full_text": "  ${time %d/%m/%y %a}|",
-	"color": "\#ecf0f1",
-	#"background": "\#9b59f6",
-	#"background": "\#008fff",
+	"full_text": " ${time %d/%m/%y %a}:",
+	"color": "\#FFFFFF",
+	"background": "\#EF5350",
 	"separator":  false,
 	"separator_block_width": 0
 },
 
 {
-	"full_text": " ${time %H:%M:%S}|",
-	"color": "\#ecf0f1",
-	#"background": "\#9b59f6",
-	#"background": "\#008fff",
+	"full_text": " ${time %H:%M:%S} ",
+	"color": "\#FFFFFF",
+	"background": "\#EF5350",
 	"separator":  false,
 	"separator_block_width": 0
 
 },
 
+#{
+#	"full_text": " CPU:${cpu cpu0}% ",
+#	"color": "\#FFFFFF",
+#	"background": "\#E5395",
+#	"separator":  false,
+#	"separator_block_width": 0
+#
+#},
+##(${memperc}%)
+##/${memmax}
+#{
+#	"full_text": " RAM:${mem} ",
+#	"color": "\#FFFFFF",
+#	"background": "\#E5395",
+#	"separator":  false,
+#	"separator_block_width": 0
+#
+#},
 {
-	"full_text": "System: ${cpu cpu0}%,${acpitemp}°C|",
-	"color": "\#ecf0f1",
-	#"background": "\#008fff",
+	"full_text": " BAT:${battery_percent BAT0}% ",
+	"color": "\#FFFFFF",
+	"background": "\#B71C1C",
 	"separator":  false,
 	"separator_block_width": 0
 
-},
-#(${memperc}%)
-#/${memmax}
-{
-	"full_text": "RAM: ${mem}|",
-	"color": "\#ecf0f1",
-	#"background": "\#008fff",
-	"separator":  false,
-	"separator_block_width": 0
-
-},
+}
 #${color}Disk: ${fs_used /path/disk} of ${fs_size /path/disk} used
 #fs_bar - Bar that shows how much space is used
 #fs_free - Free space on a file system
@@ -61,56 +67,13 @@ conky.text = [[
 #fs_size - File system size
 #fs_used - File system used space
 #{
-#	"full_text": " :${fs_free /home} /:${fs_free /} ",
-#	"color": "\#ecf0f1",
-#	"background": "\#008fff",
+#	"full_text": ":${fs_free /home} /:${fs_free /}|",
+#	"color": "\#a8a23b",
+#	#"background": "\#FCBA6E3",
 #	"separator":  false,
 #	"separator_block_width": 0
 #
 #},
-{
-	"full_text": ": ${exec amixer get Master | grep -E -o '[0-9]{1,3}?%' | head -1 }|",
-	"color": "\#ecf0f1",
-	#"background": "\#2ecc71",
-	#"background": "\#008fff",
-	"separator":  false,
-	"separator_block_width": 0
-
-},
-
-{
-	"full_text": "♪: ${execi 2 echo `mpc current` }",
-	"color": "\#ecf0f1",
-	#"background": "\#2ecc71",
-	#"background": "\#008fff",
-	"separator":  false,
-	"separator_block_width": 0
-}
-#},
-
-
-#{
-#	"full_text": "    ${exec uname -r} ",
-#	"color": "\#ecf0f1",
-#	"background": "\#e74c3c"
-#
-#}
-
-#    {
-#      "full_text": " \
-#${if_existing /proc/net/route enp0s20u1}\
-# up: ${upspeed enp0s20u1} down: ${downspeed enp0s20u1}\
-#${else}${if_existing /proc/net/route enp0s20u2}\
-# up: ${upspeed enp0s20u2} down: ${downspeed enp0s20u2}\
-#${else}${if_existing /proc/net/route enp0s26u1u2}\
-# up: ${upspeed enp0s26u1u2} down: ${downspeed enp0s26u1u2}\
-#${endif} ",
-#      "color": "\#ecf0f1",
-#      "background": "\#1abc9c"
-#    },
-
   ],
-#will be usin with new laptop:  (wifi),  (battery),  (bt)
-#i need some hardware icons tho
 ]]
 -- vim: set filetype=conkyrc:

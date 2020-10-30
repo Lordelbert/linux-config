@@ -35,7 +35,10 @@
 *.color7:       #707880
 *.color15:      #c5c8c6
 
+
+
 !xterm*font: xft:Hack:size=12
+xterm*metaSendsEscape: true
 xterm.vt100.faceName: Hack:style=Regular
 xterm*renderFont:True
 xterm*faceName: Hack
@@ -48,15 +51,14 @@ xterm*saveLines:                  5000
 !! ------------------------------------------------------------------------------
 ! Use extended color scheme
 rofi.location:          0
-rofi.opacity: 35
 !                       'background', 'border'
 !rofi.color-window:      argb:cc2E3440, argb:cc88C0D0
-rofi.color-window:      argb:cc312F32, argb:cc7B9475
+rofi.color-window:      argb:FF1F1F1F, argb:FFB71C1C
 ! State:                'bg',          'fg',   'bgalt',       'hlbg',        'hlfg'
-rofi.color-normal:      argb:005E81AC, #B6BEAD, argb:0088C0D0, argb:ff7B9475, argb:ffffffff
+rofi.color-normal:      argb:005E81AC, #ffffff, argb:0088C0D0, argb:FFB71C1C, argb:ffffffff
 
-rofi.color-active:      argb:0088C0D0, #B6BEAD, argb:0088C0D0, argb:ff7B9475, argb:ffffffff
-rofi.color-urgent:      argb:0088C0D0, #B6BEAD, argb:0088C0D0, argb:ff7B9475, argb:ffffffff
+rofi.color-active:      argb:0088C0D0, #ffffff, argb:0088C0D0, argb:ffB71C1C, argb:ffffffff
+rofi.color-urgent:      argb:0088C0D0, #ffffff, argb:0088C0D0, argb:ffB71C1C, argb:ffffffff
 rofi.font:  Noto Sans 11
 ! Separator style (none, dash, solid)
 rofi.separator-style:   solid
